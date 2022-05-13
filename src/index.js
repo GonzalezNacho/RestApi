@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 //settings
 app.set('port', process.env.PORT || 3000);
+app.set('json spaces', 2);
 
 //middlewares
 app.use(morgan('dev'));
@@ -11,9 +12,8 @@ app.use(express.urlencoded({extended:false}));//permite leer datos desde los for
 app.use(express.json()); //permite usar json
 
 //routes
-app.get('/',(req,res)=> {
-    res.json({"Title":"Hello Word"});
-})
+app.use(require('./routes/index'));
+app.use('/api/movies',require('./routes/movies'));
 
 //starting the server
 app.listen(app.get('port'), ()=>{
